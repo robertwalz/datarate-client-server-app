@@ -16,20 +16,22 @@ Im Child-Prozess wird ein Puffer erstellt, der die vom Client gesendeten Daten z
 Der Client hat die Aufgabe in bestimmten Intervallen für eine definierte Zeitspanne Datenpakete an den Server zu senden. Anhand der Quittierung des Servers kann über die Anzahl der gesendeten Blocke und der festgelegten Blockgröße die Gesamtmenge der übertragenen Bytes berechnet werden. Wird die Gesamtanzahl an übertragenen Bytes durch die Dauer der Übertragung dividiert, dann kann die Datenrate in Bytes pro Sekunde berechnet werden. Über eine Makrovariable ist die benötigte Mindestdatenrate angegeben. Sobald diese Datenrate nicht mehr erreicht wird, wird der Benutzer gefragt, ob die Datenrate der anderen Gateways, die die Ersatzstrecken und/oder -median repräsentieren, getestet werden sollen. 
 
 4. Ablauf der Client-Anwendung
+
 Beim Programmstart müssen die IP-Adressen der verfügbaren Gateways angegeben werden. Die Eingabe der IP-Adressen wird in einer History-Datei gespeichert. Sollten keine Gateways-IP-Adressen angegeben werden, dann versucht das Programm auf die History-Datei zuzugreifen und die IP-Adressen von dort auszulesen. Ist keine History-Datei verfügbar, dann brich das Programm mit einer Fehlermeldung ab, die dem Benutzer mitteilt, dass dieser die Gateway-IP-Adressen angeben muss. 
 Sobald das Programm startet wird in definierten Intervallen durch das Senden von Blöcken an die Serveranwendung die Datenrate berechnet. Über eine Schleife wird dieser Vorgang solange wiederholt, bis die benötigte Datenraten nicht erreicht wird. Tritt dieser Fall ein, dann wird der Benutzer gefragt, ob er die anderen Gateways testen möchte. Wird dies verneint, dann wird das Programm abgebrochen. Bestätigt der Benutzer, dann wird ein Gateway nach dem anderen getestet. Im Rahmen des Tests der Datenrate aller Gateways werden die verfügbaren Datenraten ausgegeben. Am Ende des Tests wird außerdem das Gateway mit der höchsten Datenrate ausgegeben. Der Benutzer wird aufgefordert eine Gateway-ID einzugeben um das Standard-Gateway dementsprechend zu ändern. Nachdem der Benutzer die ID eingegeben hat springt das Programm zum Beginn des Programms, in die Schleife, die die Datenrate wieder solange überprüft bis die Mindestdatenrate nicht erreicht wird.
 
 5. Bestandteile der Client-Anwendung
+
 Neben der main-Funktion, die die anderen Funktionen koordiniert und den Programmablauf steuert, existieren folgende Funktionen und Makrovariablen:
 
 <code>
-#define SERVER_IP "127.0.0.1" // IP-Adresse des Servers
-#define SERVER_PORT "7777" // Port der Serveranwendung
-#define BLOCK_SIZE 102400 // 100 KiB
-#define CHECK_INTERVAL 10 // Sekunden des Testintervalls
-#define TEST_DURATION 3 // Übertragungsdauer eines Tests in Sekunden
-#define MIN_DATARATE 2.5 // benötigte Mindestdatenrate in MiB/s
-#define COMMAND_HISTORY_FILE "history.txt" // Dateiname der History-Datei
+<p>#define SERVER_IP "127.0.0.1" // IP-Adresse des Servers</p>
+<p>#define SERVER_PORT "7777" // Port der Serveranwendung</p>
+<p>#define BLOCK_SIZE 102400 // 100 KiB</p>
+<p>#define CHECK_INTERVAL 10 // Sekunden des Testintervalls</p>
+<p>#define TEST_DURATION 3 // Übertragungsdauer eines Tests in Sekunden</p>
+<p>#define MIN_DATARATE 2.5 // benötigte Mindestdatenrate in MiB/s</p>
+<p>#define COMMAND_HISTORY_FILE "history.txt" // Dateiname der History-Datei</p>
 </code>
 
 <code>double getDatarateInMiBPerSecond()</code>
