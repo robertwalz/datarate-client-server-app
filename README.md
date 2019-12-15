@@ -39,6 +39,7 @@ Diese Funktion ist für das Senden der Blöcke an die Serveranwendung und die an
 
 <code>int changeGateway(char ipAddress[])</code>
 Diese Funktion wird verwendet um das Standard-Gateway des Clients zu ändern. Sie kommt zum Einsatz wenn die benötigte Datenrate nicht mehr erreicht wird und der Benutzer das Testen aller Gateways wünscht. Nach dem Test aller verfügbaren Gateways kommt die Funktion nochmals zum Einsatz, nachdem der User angegeben hat, welches Gateway für die zukünftige Übertragung verwendet werden soll. Als Parameter wird die IP-Adresse des gewünschten Gateways erwartet. In der Funktion wird ein Systemcall durchgeführt, der das Kommando zum Ändern des Standard-Gateways ausführt. Dieses Kommando ist vom jeweiligen Betriebssystem abhängig und muss vor dem Kompilieren angepasst werden.
+
 <code>
 <p>/* command is linux dependent */</p>
 <p>char command[] = "ip route change default via "; // + gateway ip address</p>
